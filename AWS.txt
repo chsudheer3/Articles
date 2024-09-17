@@ -1,0 +1,85 @@
+AWS
+
+> Region - Cluster of data centres
+> Most aws services are region-scoped
+> pricing is varies from region to region
+> AWS availability zones(AZ)
+>> each region has many AZ and each AZ is one or more discrete data centers
+>> AZ's are connected with high bandwidth, ultra low latency networking
+> Edge Locations (point of presence (pop))
+>> about 400+ pop & 10+ region caches in 90+ cities across 40+ countries
+
+> Shared responsibility model program
+  >> Customer - Responsibility for security 'in' the cloud like customer data
+  >> AWS - Responsibilty for security 'of' the cloud like software and aws global infrastructure
+> AWS global infrastructure website is useful to see available services in particular region
+> Route 53 -Global -Domain name server (DNS)
+
+1. IAM Identity and access management -global
+>> iam contains users & groups
+>> Root acc created by default, shouldn't be used or shared
+>> users are people within organization and canbe grouped
+>> groups only contains users, not other groups
+>> users don't have to belong to a group and user can belong to multiple groups
+>> IAM permissions - users or groups can be assigned json docs called policies
+                   - policies define permissions of the users
+                   - apply least privilege principle: don't give more permissions than a user needs
+>> two types of users - root user and iam user
+>> after adding user in iam by mentioning permission and adding into groups,
+   we can see iam user acc id and alias name.
+>> iam policies inheritance - if a user belongs to different groups, the policies of that groups inherit to that user
+>> policy (json) structure - Sid (identifier for statement (opt))
+                    - Effect (whether statement allows or denies access (allow,deny))
+                    - Principal (acc/user/role to which policy applied to)
+                    - action (list of actions this policy allows or denies)
+                    - resource (list of resources to which actions applied to)
+                    - condition (conditions for when this policy is in effect (opt))
+>> policies can be assigned to groups and users in that group are alligned to those policies
+>> policies can be assigned directly to users.
+>> there are 384 different policies existing
+>> we can create our own policy in visual editor(handy) or json editor
+>> IAM -Password policy -we can setup our own password structure and also prevent password re-use
+>  IAM -Multi factor authentication(MFA) --mfa=password we know + security device we own
+   - benifit of MFA is -if password is stolen or hacked, the acc is not compromised
+   - google authenticator(Phone),authy app(phone),yubikey(yubico 3rd party)
+   - hardware key fob mfa device-by gemalto
+   - acc>>security credentials>>setup mfa>>setup device
+   - upto 8 mfa devices we can add
+> How to access AWS
+  - AWS console
+  - AWS command line interface CLI for commands protected by access keys
+  - AWS software developer kit SDK for code
+  - AWS CLI is built on AWS SDK for python
+> access keys are generated through AWS console
+   - access keys are just like password
+   - access key id = username and Secret access key = password
+>> how to create access key for users
+   - iam>>users>>username>>create access key>>CLI>>Done>>download csv file or note access key id & secret key
+   - now by using access key, we can access iam in cli
+>> Cloud shell - is not available in all regions.
+> IAM Roles 
+  - AWS service will need to perform actions on our behalf, to do so,
+    we will assign permissions to aws services with iam roles.
+  - if ec2 instance want to access aws service, it must have predefined iam permission called role
+  - ex of roles:ec2 instance roles, lambda function roles etc.,
+> i am security tools
+  - Iam credentials report (acc level) -lists all our acc's users and status of their various credentials
+  - Iam access advisor (user level) -shows service permissions granted to a user and when those services last accessed
+                                    -we can use this info to revise our policies.
+
+
+Billing:
+> we can setup BUDGETS for our billing account, it will send notifications alert to email after threshold amount exceeded.
+> we can give access to iam users for accessing billing information.
+
+EC2:
+> Elastic Compute Cloud - Infrastructure as a Service (IAAS)
+> It mainly consists of - Renting VM's (EC2)
+                        - Storing data on Virtual drives (EBS)
+                        - Distributing load across machines (ELB)
+                        - Scaling services using auto scaling group (ASG)
+> Configurations: OS(linux,windows,mac), Compute power(CPU), RAM, Storage space
+** It is possible to bootstrap our instances using an EC2 user data script
+** Bootstrapping means launching commands when a machine starts.
+** script is only run once at the instance first start and it will automate boot tasks
+> EC2 instances: t2.micro (free tier), t2.xlarge, c5d.4xlarge,r5.16xlarge, m5.8xlarge
