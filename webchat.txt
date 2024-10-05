@@ -1,0 +1,7 @@
+<script>(function(){var d=document,s=d.createElement('script');s.async=true;s.src='https://academy.chatbot.aisera.cloud/awc/js?t=cd574fbd-b5c8-ef6f-391a-b85ad304d072&'+Date.now();d.getElementsByTagName('head')[0].appendChild(s)})();</script>
+
+<html>
+<body>
+fghjkl;
+</body>
+</html>
